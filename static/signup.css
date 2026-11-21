@@ -1,0 +1,150 @@
+* { 
+    box-sizing: border-box; 
+    font-family: 'Inter', sans-serif; 
+    margin: 0; 
+}
+
+/* Ensure the layout takes up the full screen */
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  flex-direction: row-reverse; /* This swaps the left and right sides */
+}
+
+a {
+    text-decoration: none;
+    color: #6366f1; /* Modern indigo link color */
+}
+
+/* Left Form Section */
+.login-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  background-color: #ffffff;
+}
+
+.form-wrapper { 
+    width: 100%; 
+    max-width: 400px; 
+}
+
+.logo { 
+    font-weight: bold;
+    margin-bottom: 40px; 
+    color: #6366f1; 
+}
+
+h1 { 
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: #FFB74D; /* Your custom wine/pink color */
+}
+
+p {
+    color: #FFD54F; /* Your custom orange/brown color */
+    margin-bottom: 20px;
+}
+
+label {
+    display: block; 
+    margin: 15px 0 5px; 
+    font-weight: 500;
+    color: #374151;
+}
+
+/* Consolidated styles for all input types and the dropdown */
+input[type="text"],
+input[type="email"], 
+input[type="password"],
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d36f1d; /* Matching your orange border theme */
+    border-radius: 8px;
+    outline: none;
+    font-size: 1rem;
+    border-color: #FFD54F;
+    transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  margin: 15px 0;
+  font-size: 0.9rem;
+}
+
+/* Buttons */
+button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+  font-size: 1rem;
+}
+
+.btn-primary {
+    background-color: #2E7D32; /* Your specific lab color */
+     color: #fff;
+     transition: opacity 0.2s;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+.btn-google {
+  background: #fff;
+  border: 1px solid #ddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Right Visual Section */
+.visual-section {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.side-photo {
+  position: absolute;
+  width: 100%;
+  height: 100%; /* Changed to 100% to avoid gaps */
+  object-fit: cover; 
+  z-index: 1;
+}
+
+.visual-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.4); /* Slightly darker for better legibility */
+  padding: 30px;
+  border-radius: 12px;
+  max-width: 80%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .visual-section { display: none; }
+  .login-container { height: auto; min-height: 100vh; }
+}

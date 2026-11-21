@@ -1,0 +1,5 @@
+
+    {
+    "python.defaultInterpreterPath": "child-asd/venv/Scripts/python.exe",
+    "python.analysis.extraPaths": ["./child-asd/venv/Lib/site-packages"]
+}

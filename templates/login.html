@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login page</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='login.css')}}">
+</head>
+<body>
+
+
+<div class="login-container">
+  <div class="login-section">
+    <div class="form-wrapper">
+      <div class="logo"></div>
+      <h1>Welcome back</h1>
+      <p>Please enter your details.</p>
+      
+      {% if error %}
+        <div class="alert alert-error">{{ error }}</div>
+      {% endif %}
+      {% if success %}
+        <div class="alert alert-success">Login successful. Redirecting to dashboard...</div>
+      {% endif %}
+      <form action="{{url_for('login')}}" method="POST">
+        <label>Email</label>
+        <input type="email"  name="email" placeholder="Enter your email" required>
+        
+        <label>Password</label>
+        <input type="password"  name="password" placeholder="••••••••" required>
+        
+        <div class="form-options">
+         
+          <a href="#">Forgot password?</a>
+        </div>
+        
+        <button type="submit" class="btn-primary">Sign in</button>
+        <button type="button" class="btn-google">
+          Sign in with Google
+        </button>
+      </form>
+      <br>
+      
+      <p class="signin-link">Don't have an account? <a href="/signup">Sign up</a></p>
+    </div>
+  </div>
+
+  <div class="visual-section">
+  <img src="/static/nature.webp" alt="Brand Visual" class="side-photo">
+  
+  <div class="visual-content">
+    <h2>See the ability, not the limitation..</h2>
+    
+</div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    {% if success %}
+      alert('Login successful! Redirecting to dashboard...');
+      window.location.href = "{{ redirect_url }}";
+    {% endif %}
+  });
+</script>
+</body>
+</html>

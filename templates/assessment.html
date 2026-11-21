@@ -1,0 +1,131 @@
+{% extends "base_sidebar.html" %}
+
+{% block title %}Section 1: Medical History{% endblock %}
+{% block page_title %}Section 1: Medical & Developmental History{% endblock %}
+{% block page_eyebrow %}Assessment: Section 1{% endblock %}
+{% block page_subtitle %}Please share a few details about your child’s early development so the assessment stays grounded in the same information used by the model.{% endblock %}
+{% block title_align %}style="text-align: left;"{% endblock %}
+{% block show_profile %}{% endblock %}
+{% block head_extra %}
+<link rel="stylesheet" href="{{ url_for('static', filename='assessment.css')}}">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}
+
+{% block content %}
+<div id="session2" class="assessment-container">
+
+    <form id="medicalHistoryForm" action="/session2" method="POST">
+        <div class="form-group">
+            <label for="jaundice">Was your child born with jaundice?</label>
+            <select id="jaundice" name="jaundice" class="form-input">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+                <option value="-1">Not sure</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="age_months">Child age (in months)</label>
+            <input id="age_months" name="age_months" type="number" min="1" step="1" class="form-input" placeholder="24" value="{{ request.form.age_months if request.form.age_months is defined else '' }}">
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Child gender</label>
+            <select id="gender" name="gender" class="form-input">
+                <option value="">Select gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other / Prefer not to say</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="family_asd">Is there any family history of autism spectrum disorder?</label>
+            <select id="family_asd" name="family_asd" class="form-input">
+                <option value="0">No</option>
+                <option value="1">Yes</option>
+                <option value="-1">Not sure</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="delay_level">How would you describe your child’s speech and learning development?</label>
+            <select id="delay_level" name="delay_level" class="form-input">
+                <option value="0">Developing well (no concerns)</option>
+                <option value="1">A little delay in speaking or learning</option>
+                <option value="2">Noticeable delay in speaking or learning</option>
+                <option value="3">Significant delay in overall development</option>
+                <option value="-1">Not sure</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn-calculate">Analyze History</button>
+    </form>
+
+    {% if result_ready %}
+    <div id="session2-result" class="result-card">
+        <h3>Developmental Background Summary</h3>
+        <p>Based on the information provided:</p>
+
+        <ul class="summary-list">
+            <li>👶 Age: {{ summary.age }}</li>
+            <li>⚧ Gender: {{ summary.gender }}</li>
+            <li>🧬 Family History: {{ summary.family_history }}</li>
+            <li>🌼 Birth History: {{ summary.birth_history }}</li>
+            <li>🗣 Development: {{ summary.development }}</li>
+        </ul>
+
+        <div class="result-interpretation">
+            <h4>Interpretation</h4>
+            <p>{{ summary.interpretation }}</p>
+            {% if summary.support_note %}
+            <p class="clarity-note">
+                Some details were marked as “Not sure”. Providing complete information can improve assessment accuracy.
+            </p>
+            {% endif %}
+        </div>
+
+        {% if summary.needs_more_info %}
+        <div class="alert alert-warning">
+            <strong>Not enough information to generate a reliable result.</strong>
+            Please complete additional background details for a more reliable assessment.
+        </div>
+        {% endif %}
+
+        <div class="result-actions">
+            {% if show_save %}
+            <button onclick="confirmAndSave()" class="primary-btn" type="button">
+                Confirm & Save to History
+            </button>
+            {% else %}
+            <a href="{{ url_for('assessment') }}" class="primary-btn">Update Section 1 Details</a>
+            {% endif %}
+            <a href="{{ url_for('assessment') }}" class="secondary-btn">Discard</a>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block body_scripts %}
+<script>
+    function confirmAndSave() {
+        Swal.fire({
+            title: 'Success!',
+            text: 'Your assessment has been saved to your history.',
+            icon: 'success',
+            confirmButtonText: 'Go to Dashboard',
+            confirmButtonColor: '#3f4d67'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "{{ url_for('dashboard') }}";
+            }
+        });
+    }
+
+    const resultElement = document.getElementById('session2-result');
+    if (resultElement) {
+        resultElement.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+{% endblock %}

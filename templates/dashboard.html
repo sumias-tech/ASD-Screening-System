@@ -1,0 +1,155 @@
+{% extends "base_sidebar.html" %}
+
+{% block title %}Dashboard - Autism Monitoring{% endblock %}
+{% block page_eyebrow %}Good morning{% endblock %}
+{% block section_title %}Welcome, {{ session.username or 'User' }}{% endblock %}
+{% block page_subtitle %}<p>Monitor your child's progress and insights here.</p><div class="dashboard-greeting-card">
+    <p><strong>Overall Screening Status:</strong> {{ completion_note }}{% if missing_sections %} Please complete: {{ missing_sections | join(', ') }}.{% endif %}</p>
+</div>{% endblock %}
+
+{% block show_logout %}
+<a href="{{ url_for('logout') }}" class="ghost-btn logout-button" onclick="return confirm('Are you sure you want to log out?');">Logout</a>
+{% endblock %}
+
+
+{% block content %}
+
+{% set completed_sessions = completed_sections_count or 0 %}
+{% set total_sessions = total_sections or 4 %}
+{% set progress_percent = ((completed_sessions / total_sessions) * 100) if total_sessions else 0 %}
+<section class="hero-panel">
+    <div class="hero-copy">
+        <p class="eyebrow">Overview</p>
+        <h2>Early Autism Insights.</h2>
+        <p>A simple summary to help understand your child’s behavior and identify early signs of autism through everyday interactions and activities..</p>
+        <div class="hero-actions">
+            <a href="{{ url_for('final_analysis') }}" class="primary-btn">View final analysis</a>
+            <a href="{{ url_for('history') }}" class="secondary-btn">Review history</a>
+        </div>
+    </div>
+    <div class="hero-dashboard-card">
+        <div class="hero-card-header">
+            <span>Assessment Progress</span>
+            <button class="ghost-btn">Update</button>
+        </div>
+        <div class="hero-card-body">
+            <div class="progress-block">
+                <div class="progress-ring" style="--progress: {{ progress_percent }};">
+                    <div class="progress-ring__inner">
+                        <span>{{ progress_percent | round(0) }}%</span>
+                    </div>
+                </div>
+                <div class="progress-copy">
+                    <p class="progress-caption">Assessment sessions</p>
+                    <h3>{{ completed_sessions }} / {{ total_sessions }}</h3>
+                    <p class="progress-note">
+                        {% if completed_sessions >= total_sessions %}
+                            All {{ total_sessions }} sessions are complete. Check the final analysis for the full review.
+                        {% else %}
+                            {{ completion_note }}
+                            {% if missing_sections %}
+                                <br><strong>Please conduct:</strong> {{ missing_sections | join(', ') }}
+                            {% endif %}
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="feature-grid">
+    <article class="feature-card">
+        <div class="feature-icon bg-blue"><i class="fas fa-list-check"></i></div>
+        <h3> Developmental Background <br> Section 1</h3>
+        <p>Basic information about your child’s early development and family background.</p>
+        <a href="{{ url_for('assessment') }}" class="card-action">Start section</a>
+    </article>
+    <article class="feature-card">
+        <div class="feature-icon bg-purple"><i class="fas fa-search"></i></div>
+        <h3> Behavior Screening<br>Section 2</h3>
+        <p>Simple questions to understand your child’s everyday behaviors and responses.</p>
+        <a href="{{ url_for('screening') }}" class="card-action">Open screening</a>
+    </article>
+    <article class="feature-card">
+        <div class="feature-icon bg-green"><i class="fas fa-eye"></i></div>
+        <h3> Interaction & Observation<br>Section 3</h3>
+        <p>Observations of how your child interacts, responds, and stays engaged during activities.</p>
+        <a href="{{ url_for('assessment2') }}" class="card-action">Open observation</a>
+    </article>
+    <article class="feature-card">
+        <div class="feature-icon bg-pink"><i class="fas fa-video"></i></div>
+        <h3>Video Analysis</h3>
+        <p>Optional video-based behavior insights to support the three assessment sections.</p>
+        <a href="{{ url_for('videoanalysis.videoanalysis') }}" class="card-action">Launch video</a>
+    </article>
+    <article class="feature-card wide-card">
+        <div class="feature-icon bg-indigo"><i class="fas fa-chart-line"></i></div>
+        <h3>Final Analysis</h3>
+        <p>A simple overview of your child’s behavior and interactions, bringing together insights from all activities.</p>
+        <a href="{{ url_for('final_analysis') }}" class="card-action">View report</a>
+    </article>
+</section>
+
+<section class="activity-card">
+    <div class="section-heading">
+        <div>
+            <p class="eyebrow">Recent Activity</p>
+            <h2>Latest assessment history</h2>
+        </div>
+        <a href="{{ url_for('history') }}" class="link-button">See all</a>
+    </div>
+    <div class="table-wrap">
+        <table>
+            <thead>
+                <tr>
+                    <th>Section</th>
+                    <th>Date</th>
+                    <th>Score</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if activities %}
+                    {% for act in activities %}
+                        <tr>
+                            <td>{{ act.category }}</td>
+                            <td>{{ act.created_at.strftime('%d %b, %Y') }}</td>
+                            <td>{{ act.score }}%</td>
+                            <td>{{ act.result_text }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="4" class="no-data">No activity recorded yet.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</section>
+
+{% if show_popup %}
+{% block body_scripts %}
+<script>
+    const rawScore = "{{ score or '' }}";
+    const rawText = "{{ result_text or '' }}";
+    if (rawScore && rawScore !== "None" && rawScore !== "") {
+        Swal.fire({
+            title: '🧠 Screening Result',
+            html: `<b>Result:</b> ${rawText}<br><b>Score:</b> ${rawScore}%`,
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Save Result'
+        }).then((selection) => {
+            if (selection.isConfirmed) {
+                window.location.href = `/save_result?score=${rawScore}&text=${encodeURIComponent(rawText)}`;
+            }
+        });
+    }
+</script>
+{% endblock %}
+{% endif %}
+
+{% endblock %}
+

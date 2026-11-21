@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f6fa;
+}
+
+.container {
+    width: 95%;
+    margin: 20px auto;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-right {
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    background: #4a6cf7;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn:hover {
+    background: #3a5be0;
+}
+
+:root {
+  --sidebar-bg: #0f172a; /* Dark Navy */
+  --text-color: #f8fafc;
+  --accent-color: #38bdf8; /* Light Blue */
+  --hover-bg: #1e293b;
+}
+
+.sidebar {
+  width: 260px;
+  height: 100vh;
+  background-color: var(--sidebar-bg);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+  position: fixed;
+  left: 0;
+  top: 0;
+}
+
+.icon {
+  margin-right: 12px;
+  font-size: 1.2rem;
+}
+
+.link-text {
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+}
+
+.section {
+    animation: fade 0.3s ease;
+}
+
+@keyframes fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+/* Main Layout */
+.main {
+    display: flex;
+    gap: 20px;
+    padding :20px , 30px;
+}
+.menu {
+    list-style: none;        /* ❌ remove dots */
+    padding: 0;
+    margin: 0;
+}
+
+.menu li {
+    padding: 12px 15px;
+    cursor: pointer;
+    border-radius: 6px;
+    margin-bottom: 5px;
+    transition: 0.3s;
+}
+
+/* Hover effect */
+.menu li:hover {
+    background-color: #4a6cf7;
+    color: white;
+}
+
+/* Active item */
+.menu li.active {
+    background-color: #4a6cf7;
+    color: white;
+}
+
+.logout {
+    position: absolute;
+    bottom: 20px;
+    left: 15px;
+    width: 15%;
+    height: 5%;
+}
+
+.logout:hover {
+    background: #e60000;
+}
+
+
+/* Right Panel */
+.right-panel {
+   width: 70%;
+    background: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    margin-left: 20%;   /*evide distance L to R*/
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.form-grid input,
+.form-grid select {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main {
+        flex-direction: column;
+    }
+
+    .left-panel,
+    .right-panel {
+        width: 100%;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+}

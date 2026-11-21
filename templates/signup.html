@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Signup</title>
+    <link rel="stylesheet" type="text/css" href="static/signup.css">
+</head>
+<body>
+  <div class="login-container"> <div class="login-section">
+      <div class="form-wrapper">
+        <div class="logo"></div>
+        <h1>Signup </h1>
+        <p>Please enter your details to create an account.</p>
+
+        <form action="{{ url_for('signup') }}" method="POST">
+          <label>Name</label>
+          <input type="text" name="name" placeholder="Enter your name" required>
+
+          <label>Email</label>
+          <input type="email" name="email" placeholder="Enter your email" required>
+
+          <label>Password</label>
+          <input type="password" name="password" placeholder="••••••••" required>
+
+          <label>Role</label>
+          <select name="role" required>
+            <option value="parent">Parent</option>
+          </select>
+
+          <button type="submit" class="btn-primary">Register</button>
+        </form>
+        <br>
+
+        <p class="signup-link">Already have an account? <a href="/login">Signin</a></p>
+      </div>
+    </div>
+
+    <div class="visual-section">
+      <img src="/static/bg2.jpg" alt="Brand Visual" class="side-photo">
+      <div class="visual-content">
+        <h2>Small steps today, big progress tomorrow.</h2>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

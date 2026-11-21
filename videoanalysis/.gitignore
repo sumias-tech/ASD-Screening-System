@@ -1,0 +1,70 @@
+# ── Python ────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+.Python
+
+# ── Virtual environments ──────────────────────────────────────────────────
+venv/
+env/
+.env/
+.venv/
+ENV/
+
+# ── Environment variables ─────────────────────────────────────────────────
+.env
+.env.local
+.env.production
+
+# ── Flask ─────────────────────────────────────────────────────────────────
+instance/
+.flask_session/
+
+# ── Uploads (user-submitted videos — never commit these) ──────────────────
+uploads/
+*.mp4
+*.avi
+*.mov
+*.webm
+*.mkv
+*.flv
+
+# ── Generated output files ────────────────────────────────────────────────
+static/report.pdf
+static/graph.png
+
+# ── MediaPipe model file (large binary — download separately) ─────────────
+*.task
+pose_landmarker_full.task
+pose_landmarker_lite.task
+pose_landmarker_heavy.task
+
+# ── Database ──────────────────────────────────────────────────────────────
+*.db
+*.sqlite
+*.sqlite3
+
+# ── OS files ──────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+Thumbs.db
+desktop.ini
+
+# ── IDEs and editors ──────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Logs ──────────────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Distribution / packaging ──────────────────────────────────────────────
+dist/
+build/
+*.egg-info/
+*.egg

@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASD Behavioral Analysis</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg:         #f4f6f9;
+  --surface:    #ffffff;
+  --surface-2:  #f8f9fb;
+  --ink:        #0f1923;
+  --ink-mid:    #4a5568;
+  --ink-dim:    #94a3b8;
+  --accent:     #1d6fa4;
+  --accent-lt:  #e8f2f9;
+  --accent-2:   #0ea5e9;
+  --success:    #0f7a55;
+  --border:     #e2e8f0;
+  --border-2:   #cbd5e1;
+  --radius:     8px;
+  --shadow-sm:  0 1px 3px rgba(15,25,35,0.06), 0 1px 2px rgba(15,25,35,0.04);
+  --shadow-md:  0 4px 16px rgba(15,25,35,0.08), 0 2px 4px rgba(15,25,35,0.04);
+}
+
+body {
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  padding: 48px 20px;
+}
+
+/* top bar accent */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  z-index: 100;
+}
+
+.wrapper {
+  width: 100%;
+  max-width: 940px;
+  animation: fadeUp 0.5s ease both;
+}
+
+.page-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.9fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.guide-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 26px;
+  box-shadow: var(--shadow-md);
+  width: 600px;
+}
+
+.guide-card h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.guide-card p {
+  color: var(--ink-mid);
+  line-height: 1.75;
+  margin-bottom: 18px;
+}
+
+.guide-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+
+.guide-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.guide-item .bullet {
+  width: 10px;
+  height: 10px;
+  margin-top: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.guide-note {
+  margin-top: 20px;
+  padding: 16px;
+  border-left: 4px solid var(--accent);
+  background: rgba(30, 112, 194, 0.08);
+  color: var(--ink);
+  border-radius: 12px;
+  font-size: 13px;
+}
+
+@media (max-width: 840px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* --- top brand bar --- */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 32px;
+}
+
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--accent);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brand-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: white;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.brand-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.brand-sub {
+  font-size: 11px;
+  color: var(--ink-dim);
+  font-weight: 400;
+  margin-top: 1px;
+}
+
+/* --- page title --- */
+.page-title {
+  font-size: clamp(22px, 4vw, 28px);
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 6px;
+}
+
+.page-sub {
+  font-size: 14px;
+  color: var(--ink-mid);
+  line-height: 1.6;
+  font-weight: 400;
+  margin-bottom: 24px;
+}
+
+/* --- card --- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: var(--shadow-md);
+}
+
+/* --- upload zone --- */
+.upload-zone {
+  border: 1.5px dashed var(--border-2);
+  border-radius: var(--radius);
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.18s, background 0.18s;
+  position: relative;
+  background: var(--surface-2);
+}
+
+.upload-zone:hover,
+.upload-zone.dragging {
+  border-color: var(--accent);
+  background: var(--accent-lt);
+}
+
+.upload-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+
+.upload-icon {
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 12px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.upload-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.upload-label {
+  font-size: 14px;
+  color: var(--ink);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.upload-hint {
+  font-size: 12px;
+  color: var(--ink-dim);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.file-name {
+  margin-top: 10px;
+  font-size: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  color: var(--success);
+  font-weight: 500;
+  min-height: 18px;
+}
+
+/* --- section label --- */
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin: 22px 0 12px;
+}
+
+/* --- feature tags --- */
+.feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 7px;
+}
+
+.feature-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 12.5px;
+  color: var(--ink-mid);
+  font-weight: 500;
+}
+
+.feature-tag svg {
+  width: 13px;
+  height: 13px;
+  stroke: var(--accent);
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+/* --- submit button --- */
+.btn {
+  width: 100%;
+  margin-top: 22px;
+  padding: 13px 20px;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.18s, box-shadow 0.18s, transform 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: -0.01em;
+}
+
+.btn:hover {
+  background: #175e8c;
+  box-shadow: 0 4px 14px rgba(29,111,164,0.3);
+}
+
+.btn:active { transform: scale(0.99); }
+
+.btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.btn.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.spinner {
+  display: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.35);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.btn.loading .spinner  { display: block; }
+.btn.loading .btn-text { display: none; }
+.btn.loading .btn-icon { display: none; }
+
+/* --- footer note --- */
+.footer-note {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--ink-dim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.footer-note svg {
+  width: 12px;
+  height: 12px;
+  stroke: var(--ink-dim);
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex-shrink: 0;
+}
+
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+
+  <!-- Brand -->
+  <div class="brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    </div>
+    <div>
+      <div class="brand-text">Analyze Your Child’s Behavior Through Video</div>
+      <div class="brand-sub">Upload a short video to assess attention, eye contact, and movement patterns.<br>This analysis helps identify early signs related to attention, eye contact, and behavioral patterns in kids .</div>
+    </div>
+  </div>
+
+  <div class="page-grid">
+    <div class="card">
+      <form action="{{ url_for('videoanalysis.analyze_video') }}" method="post" enctype="multipart/form-data" id="uploadForm">
+
+        <div class="upload-zone" id="dropZone">
+        <input type="file" name="video" id="videoInput" accept="video/*" required>
+        <div class="upload-icon">
+          <svg viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></svg>
+        </div>
+        <div class="upload-label">Drop video file here</div>
+        <div class="upload-hint">MP4 · AVI · MOV · WEBM</div>
+        <div class="file-name" id="fileName"></div>
+      </div>
+
+      <div class="section-label">Analysis includes</div>
+      <div class="feature-grid">
+        <div class="feature-tag">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          Face Direction
+        </div>
+        <div class="feature-tag">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z"/></svg>
+          Head Pose
+        </div>
+        <div class="feature-tag">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><polyline points="23 21 23 19"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Body Posture
+        </div>
+        <div class="feature-tag">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          Attention Score
+        </div>
+        <div class="feature-tag">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          Eye Alignment
+        </div>
+        <div class="feature-tag">
+          <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+          ASD Risk Level
+        </div>
+      </div>
+
+      <button type="submit" class="btn" id="submitBtn">
+        <span class="btn-text">Run Analysis</span>
+        <svg class="btn-icon" viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        <div class="spinner"></div>
+      </button>
+
+      </form>
+    </div>
+
+    <aside class="guide-card">
+      <h2>Video Upload Guidelines</h2>
+      <p>Follow these tips to capture the best video for analysis.</p>
+      <ul class="guide-list">
+        <li class="guide-item"><span class="bullet"></span><div>Use a well-lit room with light facing the child.</div></li>
+        <li class="guide-item"><span class="bullet"></span><div>Keep the background simple and clutter-free.</div></li>
+        <li class="guide-item"><span class="bullet"></span><div>Avoid TV, music, or other distractions.</div></li>
+        <li class="guide-item"><span class="bullet"></span><div>Place the camera at the child’s eye level.</div></li>
+        <li class="guide-item"><span class="bullet"></span><div>Keep the camera steady (use a table or stand).</div></li>
+        <li class="guide-item"><span class="bullet"></span><div>Maintain a distance of about 3–6 feet.</div></li>
+        <li class="guide-item"><span class="bullet"></span><div>Avoid loose or baggy clothing.</div></li>
+        <li class="guide-item"><span class="bullet"></span><div>Use clothing that contrasts with the background.</div></li>
+        <li class="guide-item"><span class="bullet"></span><div>Record for at least 1–3 minutes.</div></li>
+        <li class="guide-item"><span class="bullet"></span><div>Make sure the child stays within the frame.</div></li>
+        <li class="guide-item"><span class="bullet"></span><div>Allow natural play or interaction (do not force actions).</div></li>
+      </ul>
+      <div class="guide-note">Tip: Keep the session calm and natural so the analysis can focus on authentic behavior.</div>
+    </aside>
+  </div>
+
+  <div class="footer-note">
+    <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+    Your video is used only for assessment purposes and handled securely.
+  </div>
+
+</div>
+
+<script>
+  const input    = document.getElementById('videoInput');
+  const fileName = document.getElementById('fileName');
+  const dropZone = document.getElementById('dropZone');
+  const form     = document.getElementById('uploadForm');
+  const btn      = document.getElementById('submitBtn');
+
+  input.addEventListener('change', () => {
+    if (input.files[0]) fileName.textContent = '✓ ' + input.files[0].name;
+  });
+
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragging'); });
+  dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragging'));
+  dropZone.addEventListener('drop', e => {
+    e.preventDefault();
+    dropZone.classList.remove('dragging');
+    if (e.dataTransfer.files[0]) {
+      input.files = e.dataTransfer.files;
+      fileName.textContent = '✓ ' + e.dataTransfer.files[0].name;
+    }
+  });
+
+  form.addEventListener('submit', () => btn.classList.add('loading'));
+</script>
+
+</body>
+</html>

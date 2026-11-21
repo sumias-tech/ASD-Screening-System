@@ -1,0 +1,24 @@
+{% extends "base_sidebar.html" %}
+
+{% block title %}Report Preview{% endblock %}
+{% block page_title %}Report Preview{% endblock %}
+{% block page_eyebrow %}History report{% endblock %}
+{% block page_subtitle %}Preview the saved result from history.{% endblock %}
+
+{% block page_actions %}
+<a href="{{ url_for('history') }}" class="ghost-btn">Back to History</a>
+{% endblock %}
+
+{% block content %}
+<div class="history-report-card">
+    <div class="report-summary">
+        <h2>{{ item.category or 'Saved result' }}</h2>
+        <p><strong>Date:</strong> {{ item.created_at or 'Unknown' }}</p>
+        <p><strong>Score:</strong> {{ item.score or 'N/A' }}%</p>
+        <p><strong>Result:</strong> {{ item.result_text or 'N/A' }}</p>
+        <div class="report-notes">
+            <p>This is a saved history report. Use the back button to return to the history list.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

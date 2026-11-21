@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Automated Autism Assessment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css')}}">
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo"></div>
+        <nav class="navbar">
+          
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="#about">About</a>
+            <a href="#features">Features</a>
+            <a href="#contact">Contact</a>
+    <div class="dropdown">
+    <input type="checkbox" id="drop"/>
+    <label for="drop" class="dropdown-label" name="register">Register</label>
+    
+    <ul class="dropdown-menu">
+        <span class="arrow"></span> <li>
+            <a  name="signup" href="{{ url_for('signup') }}">Students Registration</a></li>
+        <li><a href="#consultant">Consultant Registration</a></li>
+    </ul>
+</div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <p class="hero-subtitle">Supporting Early Identification for Better Future.</p>
+            <h1>Early Autisum Detection and support.</h1>
+            <p class="hero-description">A Platform to collect and Manage detailed information and give supports by professional consultation to assess autism levels and help in early Identification.</p><br><br><br>
+            <div class="hero-buttons">
+                <a href="#about" class=" btn btn-primary">Learn More</a>
+            
+            </div>
+        </div>
+    </section>
+            <div class="servies-container">
+               
+ 
+    <a href="{{ url_for('signup') }}"class="servies-card">
+        <img src="{{ url_for('static', filename='child2.png') }}" class="card-img">
+    <h3>New Registration</h3>
+    </a>
+  
+
+ <a href="{{ url_for('login') }}"class="servies-card">
+    <img src="{{ url_for('static', filename='progress.png')}}" class="card-imag">
+    <h3>Development Tracking</h3>
+ </a>
+
+  <div class="servies-card">
+    <img src="{{ url_for('static', filename='consult.png')}}" class="card-img">
+    <h3>Book Consultation</h3>
+  </div>
+</div>
+<div  id="doctor" class="servies-card">
+   <img src="{{ url_for('static' , filename='doc1.png')}}" class="card-img">
+    <h3>Doctors Section</h3>
+  </div>
+</div>
+
+
+
+        </div>
+        <div></div>
+    </section>
+
+    <section id="about" class="about">
+        <h1>About Our Platform</h1>
+        <p>Our platform is designed to assist in the early identification of autism traits in children. The system includes Sessions and questionnaires that helps consultants can assess the child's Condition and Determine autism levels  more accurately. Consultants can review the collected data, conduct evalutions, and record consultantion sessions, enabling continuous monitoring and informed decision-making. </p> <br><p>All information is securely stored and systematically organized for easy access.Here the platform supports video-based observation to enhance behavioral analysis and improve the accuracy of assessments. We aim to provide an efficient platform for early autism detection and better support for the childrens .</p>
+    </section>
+
+    <section id="features" class="features">
+    <div class="container">
+        <h2 class="section-title">Features</h2>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <img src="{{url_for('static', filename='early.png')}}" class="feature-img">
+                <h3>Early Autism Detection</h3>
+                <p>Analyze behavioral patterns and developmental data to identify autism traits in children at an early stage.</p>
+            </div>
+
+            <div class="feature-card">
+
+                <img src="{{ url_for('static' , filename='sessions.png')}}" class="feature-img">
+                <h3>Sessions & Questionnaires</h3>
+                <p>Understand patterns and responses assessments through structured digital forms and evaluations.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="{{url_for('static', filename='video.png')}}" class="feature-img">
+                <h3>Video-Based Observation</h3>
+                <p>Upload and analyze videos of behavior to support assessments even if the child is not physically present.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="{{url_for('static', filename='trackingconsult.png')}}" class="feature-img">
+                <h3>Consultation Tracking</h3>
+                <p>Record and store professional assessments and consultations for continuous monitoring.</p>
+            </div>
+
+            <div class="feature-card">
+                <img src="{{url_for('static', filename='tracking.png' )}}" class="feature-img">
+                <h3>Monitoring & Reporting</h3>
+                <p>Parents and consultants can monitor progress and track changes in the child’s development over time.</p>
+            </div>
+
+            <div class="feature-card">
+              <img src="{{ url_for('static', filename='secure.png')}}" class="feature-img">
+                <h3>Secure Data Storage</h3>
+                <p>All data is systematically organized and securely stored to ensure privacy and easy access.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="works">
+    <div class="works-header">
+        <h2>How It Works</h2>
+        <p>Simple steps to get started with your tracking.</p>
+    </div>
+    <div class="cards-container">
+        <div class="card">
+            <div class="step-num">1</div>
+            <img src="{{url_for('static', filename='create.png')}}" class="step-img">
+            <h3>Create Account</h3>
+            <p>Create an Account to access the platform seamlessly.</p>
+        </div>
+        <div class="card">
+            <div class="step-num">2</div>
+            <img src="{{url_for('static',filename='birthdetails.png')}}" class="step-img">
+            <h3>Birth Details</h3>
+            <p>Add essential details from birth to begin tracking.</p>
+        </div>
+        <div class="card">
+            <div class="step-num">3</div>
+            <img src="{{url_for('static',filename='assessments.png')}}" class="step-img">
+            <h3>Assessments</h3>
+            <p>Record regular assessments and updates for accuracy.</p>
+        </div>
+        <div class="card">
+            <div class="step-num">4</div>
+             <img src="{{url_for('static',filename='video.png')}}" class="step-img">
+            <h3>Video Insights</h3>
+            <p>Upload and analyze videos for behavioral insights.</p>
+        </div>
+    </div>
+</section>
+
+     <section id="scores" class="scores">
+    <div class="score-graph">
+            <h1>Autism Severity Level</h1>
+        <div class="score">
+            <h2> ≤70 </h2>
+            <p>No Autism/Normal </p>
+        </div>
+        <div class="score">
+            <h2>70-106</h2>
+            <p>Mild Autism </p>
+        </div>
+        <div class="score">
+            <h2>107-153</h2>
+            <p>Moderate Autism</p>
+        </div>
+        <div class="score">
+            <h2> >153 </h2>
+            <p> Severe Autism</p>
+        </div>
+        </div>
+     </section>
+ 
+   <section class="users-section">
+    <div class="container">
+        <h2 class="section-title">Who Can Use Our Website</h2>
+        <div class="user-grid">
+            <div class="user-card">
+              <img src="{{url_for('static',filename='parents.png')}}" class="user-img">  
+                <h3>Parents</h3>
+                <p>Create and manage your child’s profile and monitor progress in real-time.</p>
+            </div>
+
+            <div class="user-card">
+                 <img src="{{url_for('static',filename='consultant.png')}}" class="user-img">  
+                <h3>Consultants</h3>
+                <p>Assess, evaluate, and provide professional guidance through integrated tools.</p>
+            </div>
+
+            <div class="user-card">
+                 <img src="{{url_for('static',filename='teachers.png')}}" class="user-img">  
+                <h3>Teachers</h3>
+                <p>Observe and support the child’s development in school or care environments.</p>
+            </div>
+
+            <div class="user-card">
+                 <img src="{{url_for('static',filename='therapist.png')}}" class="user-img">  
+                <h3>Therapists</h3>
+                <p>Analyze data to improve autism assessment and intervention methods.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <section class="hook">
+        <h2>Start Early, Support Better 💙</h2><br><br>
+        <a href="registration.html" class="btn">Register</a>
+    </section>
+
+    <footer id="contact" class="footer">
+        <p>Contact: Email - support@autismtrack.com</p>
+        <p>&copy; 2026 Autsim Track. All rights reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('click', function(event) {
+    const dropdown = document.querySelector('.dropdown');
+    const checkbox = document.getElementById('drop');
+    
+    // Check if the click was OUTSIDE the dropdown div
+    if (!dropdown.contains(event.target)) {
+        checkbox.checked = false; // Close the menu
+    }
+});
+window.addEventListener("scroll", function() {
+    let navbar = document.querySelector(".navbar");
+
+    if (window.scrollY > 50) {
+        navbar.classList.add("shrink");
+    } else {
+        navbar.classList.remove("shrink");
+    }
+});
+
+    </script>
+
+</body>
+</html>

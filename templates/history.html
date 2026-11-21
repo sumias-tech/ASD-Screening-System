@@ -1,0 +1,44 @@
+{% extends "base_sidebar.html" %}
+
+{% block title %}History - Autism Tracking{% endblock %}
+{% block page_title %}Assessment History{% endblock %}
+{% block page_eyebrow %}Review completed sections{% endblock %}
+{% block page_subtitle %}View and track all past screening results and observations.{% endblock %}
+
+{% block content %}
+<div class="history-container">
+    {% if not history_items %}
+    <div class="empty-history">
+        <i class="fas fa-folder-open"></i>
+        <h2>No records found</h2>
+        <p>Your assessment history will appear here once you complete a screening.</p>
+    </div>
+    {% else %}
+
+    <table class="history-table">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Date</th>
+                <th>Score</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in history_items %}
+            <tr>
+                <td>{{ item.category or 'Result' }}</td>
+                <td>{{ item.created_at or item.date }}</td>
+                <td>{{ item.score or '0' }}%</td>
+                <td>
+                    <a href="{{ url_for('view_history_report', history_id=item.id) }}" class="btn-view">View Report</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% endif %}
+</div>
+{% endblock %}
+    

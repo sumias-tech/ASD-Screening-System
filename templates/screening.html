@@ -1,0 +1,157 @@
+{% extends "base_sidebar.html" %}
+
+{% block title %}Section 2: Autism Screening{% endblock %}
+{% block page_title %}Section 2: Autism Screening{% endblock %}
+{% block page_eyebrow %}Assessment: Section 2{% endblock %}
+{% block page_subtitle %}Answer the short screening questions about social communication and interaction patterns.{% endblock %}
+{% block title_align %}style="text-align: left;"{% endblock %}
+{% block show_profile %}{% endblock %}
+{% block head_extra %}
+<link rel="stylesheet" href="{{ url_for('static', filename='screening.css') }}">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{% endblock %}
+
+{% block content %}
+<div class="screening-card">
+
+    <form action="/submit" method="POST">
+        <p class="form-help">Please answer based on your child’s usual behavior over the past few weeks.</p>
+
+        <div class="question">
+            <p>1. Does your child look at you when you call their name?</p>
+            <label><input type="radio" name="q1" value="0"> Never</label>
+            <label><input type="radio" name="q1" value="1"> Sometimes</label>
+            <label><input type="radio" name="q1" value="2"> Often</label>
+        </div>
+
+        <div class="question">
+            <p>2. Does your child make eye contact during interaction?</p>
+            <label><input type="radio" name="q2" value="0"> Never</label>
+            <label><input type="radio" name="q2" value="1"> Sometimes</label>
+            <label><input type="radio" name="q2" value="2"> Often</label>
+        </div>
+
+        <div class="question">
+            <p>3. Does your child point to show interest?</p>
+            <label><input type="radio" name="q3" value="0"> Never</label>
+            <label><input type="radio" name="q3" value="1"> Sometimes</label>
+            <label><input type="radio" name="q3" value="2"> Often</label>
+        </div>
+
+        <div class="question">
+            <p>4. Does your child follow your pointing gesture?</p>
+            <label><input type="radio" name="q4" value="0"> Never</label>
+            <label><input type="radio" name="q4" value="1"> Sometimes</label>
+            <label><input type="radio" name="q4" value="2"> Often</label>
+        </div>
+
+        <div class="question">
+            <p>5. Does your child do pretend play?</p>
+            <label><input type="radio" name="q5" value="0"> Never</label>
+            <label><input type="radio" name="q5" value="1"> Sometimes</label>
+            <label><input type="radio" name="q5" value="2"> Often</label>
+        </div>
+
+        <div class="question">
+            <p>6. Does your child bring objects to show you?</p>
+            <label><input type="radio" name="q6" value="0"> Never</label>
+            <label><input type="radio" name="q6" value="1"> Sometimes</label>
+            <label><input type="radio" name="q6" value="2"> Often</label>
+        </div>
+
+        <div class="question">
+            <p>7. Does your child respond with a smile?</p>
+            <label><input type="radio" name="q7" value="0"> Never</label>
+            <label><input type="radio" name="q7" value="1"> Sometimes</label>
+            <label><input type="radio" name="q7" value="2"> Often</label>
+        </div>
+
+        <div class="question">
+            <p>8. Does your child use gestures like waving?</p>
+            <label><input type="radio" name="q8" value="0"> Never</label>
+            <label><input type="radio" name="q8" value="1"> Sometimes</label>
+            <label><input type="radio" name="q8" value="2"> Often</label>
+        </div>
+
+        <div class="question">
+            <p>9. Does your child share interest with you?</p>
+            <label><input type="radio" name="q9" value="0"> Never</label>
+            <label><input type="radio" name="q9" value="1"> Sometimes</label>
+            <label><input type="radio" name="q9" value="2"> Often</label>
+        </div>
+
+        <div class="question">
+            <p>10. Does your child try to communicate using sounds or words?</p>
+            <label><input type="radio" name="q10" value="0"> Never</label>
+            <label><input type="radio" name="q10" value="1"> Sometimes</label>
+            <label><input type="radio" name="q10" value="2"> Often</label>
+        </div>
+
+         <button type="submit">Submit</button>
+
+    </form>
+
+    {% if result_ready %}
+    <div id="screening-result" class="result-card">
+        <h3>Screening Result</h3>
+        <p>{{ result_text }}</p>
+        <div class="result-score">
+            <h2>Score: {{ score }}%</h2>
+        </div>
+        <div class="result-actions">
+            <button type="button" onclick="saveResult()" class="primary-btn">Save to History</button>
+            <a href="{{ url_for('screening') }}" class="secondary-btn">Discard</a>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}
+
+{% block body_scripts %}
+<script type="application/json" id="screening-data">
+{{ {'score': score|default(0), 'text': result_text|default(''), 'ready': result_ready|default(false)}|tojson }}
+</script>
+<script>
+    const screeningData = JSON.parse(document.getElementById('screening-data').textContent);
+    const screeningScore = screeningData.score;
+    const screeningText = screeningData.text;
+    const resultReady = screeningData.ready;
+    const saveUrl = "{{ url_for('save_result') }}";
+
+    function saveResult() {
+        Swal.fire({
+            title: 'Success!',
+            text: 'Your assessment will be saved to history.',
+            icon: 'success',
+            confirmButtonText: 'Continue',
+            confirmButtonColor: '#3f4d67'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = `${saveUrl}?score=${screeningScore}&text=${encodeURIComponent(screeningText)}&category=Section 2 - Screening`;
+            }
+        });
+    }
+
+    if (resultReady) {
+        Swal.fire({
+            title: 'Screening Complete',
+            html: `<strong>${screeningText}</strong><br><span>Score: ${screeningScore}%</span>`,
+            icon: 'info',
+            confirmButtonText: 'Save to History',
+            showCancelButton: true,
+            cancelButtonText: 'Close',
+            confirmButtonColor: '#3f4d67'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                saveResult();
+            }
+        });
+    }
+
+    const resultElement = document.getElementById('screening-result');
+    if (resultElement) {
+        resultElement.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+{% endblock %}

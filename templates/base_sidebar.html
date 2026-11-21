@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    {% block head_extra %}{% endblock %}
+</head>
+<body class="dashboard-page">
+    <div class="dashboard-shell">
+        <header class="topbar">
+            
+            <div class="brand-group">
+                <div class="brand-icon">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <div>
+                    <p class="eyebrow">Autism Monitoring</p>
+                    <h1>{% block page_title %}Dashboard{% endblock %}</h1>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="profile-chip">
+                    <div class="profile-details">
+                        <span>{{ session.username or 'Guest' }}</span>
+                        <small>Age: {{ age or 'Not set' }} | Gender: {% if gender in ['M', 'm', 'male', 'Male', 'MALE'] %}Male{% elif gender in ['F', 'f', 'female', 'Female', 'FEMALE'] %}Female{% elif gender %}{{ gender }}{% else %}Not set{% endif %}</small>
+                    </div>
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed={{ session.username or 'guest' }}" alt="Profile">
+                </div>
+                <a href="{{ url_for('logout') }}" class="ghost-btn logout-button" onclick="return confirm('Are you sure you want to log out?');">Logout</a>
+            </div>
+        </header>
+
+        <main class="page-frame">
+            <section class="page-heading">
+                <div>
+                    <p class="eyebrow">{% block page_eyebrow %}Overview{% endblock %}</p>
+                    <h2>{% block section_title %}{% endblock %}</h2>
+                    <div class="page-description">{% block page_subtitle %}<p>Monitor your child's progress and insights here.</p>{% endblock %}</div>
+                </div>
+                <div class="page-actions">
+                    {% block page_actions %}{% endblock %}
+                </div>
+            </section>
+
+            <section class="page-content">
+                {% block content %}{% endblock %}
+            </section>
+        </main>
+    </div>
+
+    {% block body_scripts %}{% endblock %}
+</body>
+</html>

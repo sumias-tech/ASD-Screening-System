@@ -1,0 +1,105 @@
+/* --- LAYOUT FIX --- */
+.main-content {
+    margin-left: 260px; /* Sidebar width */
+    padding: 40px;
+    background-color: #f0f7ff;
+    min-height: 100vh;
+}
+
+/* --- EMPTY STATE (New User) --- */
+.empty-state-card {
+    background: white;
+    padding: 60px 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    max-width: 600px;
+    margin: 40px auto;
+}
+
+.empty-icon {
+    font-size: 60px;
+    color: #e2e8f0;
+    margin-bottom: 20px;
+}
+
+.empty-state-card h2 { color: #0b1120; margin-bottom: 10px; }
+.empty-state-card p { color: #64748b; margin-bottom: 30px; }
+
+.btn-primary {
+    background: #f85d90;
+    color: white;
+    padding: 14px 30px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    display: inline-block;
+}
+
+/* --- ANALYSIS DATA (Existing User) --- */
+.analysis-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+}
+
+.analysis-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.pink-border { border-left: 6px solid #f85d90; }
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.badge.low { background: #dcfce7; color: #166534; }
+.badge.medium { background: #fef9c3; color: #854d0e; }
+.badge.high { background: #fee2e2; color: #991b1b; }
+
+/* Trait List with Progress Bars */
+.trait-list { list-style: none; margin-top: 20px; }
+.trait-list li { margin-bottom: 20px; }
+.trait-list li span { display: block; font-size: 14px; font-weight: 600; color: #1e293b; margin-bottom: 8px; }
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.fill {
+    height: 100%;
+    background: linear-gradient(90deg, #2d3359, #f85d90);
+    border-radius: 10px;
+}
+
+.recommendation {
+    grid-column: 1 / -1; /* Full width */
+    background: #f9fbff;
+}
+
+.btn-outline {
+    margin-top: 20px;
+    background: none;
+    border: 2px solid #0b1120;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}

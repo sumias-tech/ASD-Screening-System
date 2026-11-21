@@ -1,0 +1,125 @@
+/* --- LAYOUT FIX --- */
+.main-content {
+    margin-left: 260px;
+    padding: 40px;
+    background-color: #f0f7ff;
+    min-height: 100vh;
+}
+
+.history-container {
+    max-width: 850px;
+}
+
+/* --- EMPTY STATE --- */
+.empty-history {
+    text-align: center;
+    padding: 80px 20px;
+    background: white;
+    border-radius: 20px;
+    color: #94a3b8;
+}
+
+.empty-history i {
+    font-size: 50px;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+.empty-history h2 {
+    color: #1e293b;
+    margin-bottom: 10px;
+}
+
+/* --- HISTORY ITEMS --- */
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.history-item {
+    background: white;
+    padding: 20px 25px;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    transition: transform 0.2s;
+}
+
+.history-item:hover {
+    transform: translateX(5px);
+}
+
+.pink-border {
+    border-left: 6px solid #f85d90;
+}
+
+.item-icon {
+    width: 50px;
+    height: 50px;
+    background: #f0f7ff;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2d3359;
+    font-size: 20px;
+}
+
+.item-details {
+    flex-grow: 1;
+}
+
+.item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.item-top h3 {
+    font-size: 16px;
+    color: #0b1120;
+}
+
+.item-date {
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.item-stats {
+    display: flex;
+    gap: 15px;
+}
+
+.stat-tag {
+    font-size: 13px;
+    color: #64748b;
+    background: #f8fafc;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.stat-tag strong {
+    color: #f85d90;
+}
+
+/* --- ACTIONS --- */
+.btn-view {
+    background: #0b1120;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-view:hover {
+    background: #f85d90;
+}

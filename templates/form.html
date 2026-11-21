@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Evaluation Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='formstyle.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <div class="hero">
+        <div class="hero-icon">&#x1F4DD;</div>
+        <div>
+            <h1>👶 Child Observation</h1>
+            <p>Filled by Parents and Caregivers.</p>
+        </div>
+    </div>
+
+    <form  action="http://127.0.0.1:5000/predict" method="POST" id="evaluationForm">
+        <div class="field-group">
+            <label for="courseSelect">Filled by  </label>
+            <select id="courseSelect" name="course">
+                <option value="sales">Parent</option>
+                <option value="customer-service">Caregiver</option>
+                <option value="leadership">Therapist</option>
+                <option value="communication">Teachers</option>
+            </select>
+        </div>
+
+        <div class="section-heading">
+            <span class="section-number">1.</span>
+            <div>
+                <h2>Little Steps Check</h2>
+                <p>A Simple Screening for Children (1–10 Years)</p>
+            </div>
+        </div>
+
+        <div class="table-header">
+            <div>Question</div>
+            <div>Strongly Disagree</div>
+             <div>Disagree</div>
+             <div>Neutral</div>
+             <div>Agree</div>
+             <div>Strongly Agree</div>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">Does your child often notice small sounds when others do not?</div>
+            <label><input type="radio" name="q1" value="1"></label>
+            <label><input type="radio" name="q1" value="2"></label>
+            <label><input type="radio" name="q1" value="3"></label> 
+            <label><input type="radio" name="q1" value="4"></label>
+             <label><input type="radio" name="q1" value="5"></label>    
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">Does your child concentrate more on the whole picture rather than small details?</div>
+            <label><input type="radio" name="q2" value="1"></label>
+            <label><input type="radio" name="q2" value="2"></label>
+            <label><input type="radio" name="q2" value="3"></label>
+            <label><input type="radio" name="q2" value="4"></label>
+            <label><input type="radio" name="q2" value="5"></label  
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">In a social group, can your child easily keep track of several different people’s conversations?</div>
+            <label><input type="radio" name="q3" value="1"></label>
+            <label><input type="radio" name="q3" value="2"></label>
+            <label><input type="radio" name="q3" value="3"></label>
+            <label><input type="radio" name="q3" value="4"></label>
+            <label><input type="radio" name="q3" value="5"></label>
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">Does your child find it easy to go back and forth between different activities?</div>
+            <label><input type="radio" name="q4" value="1"></label>
+            <label><input type="radio" name="q4" value="2"></label>
+            <label><input type="radio" name="q4" value="3"></label>
+            <label><input type="radio" name="q4" value="4"></label>
+            <label><input type="radio" name="q4" value="5"></label>
+
+        </div>
+
+        <div class="question-row">
+            <div class="question-text">Does your child find it hard to keep a conversation going with their peers?</div>
+            <label><input type="radio" name="q5" value="1"></label>
+            <label><input type="radio" name="q5" value="2"></label>
+        <div class="question-row">
+            <div class="question-text">Is your child good at “social chit-chat”?</div>
+            <label><input type="radio" name="q6" value="1"></label>
+            <label><input type="radio" name="q6" value="2"></label>
+
+        </div>
+        <div class="question-row">
+            <div class="question-text">When being read a story, does the child find it difficult to work out the character’s intentions?</div>
+            <label><input type="radio" name="q7" value="1"></label>
+            <label><input type="radio" name="q7" value="2"></label>
+
+        </div>
+        <div class="question-row">
+            <div class="question-text">As a preschooler, did your child enjoy playing games involving pretending with other children?</div>
+            <label><input type="radio" name="q8" value="1"></label>
+            <label><input type="radio" name="q8" value="2"></label>
+        </div>
+        <div class="question-row">
+            <div class="question-text">Does your child find it easy to work out what someone is thinking or feeling just by looking at their face?</div>
+            <label><input type="radio" name="q9" value="1"></label>
+            <label><input type="radio" name="q9" value="2"></label>
+        </div>
+        <div class="question-row">
+            <div class="question-text">Does your child find it hard to make new friends?</div>
+            <label><input type="radio" name="q10" value="1"></label>
+            <label><input type="radio" name="q10" value="2"></label>
+        </div>
+
+        <button type="button" onclick="submitEvaluation()">Finish</button>
+    </form>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function submitEvaluation() {
+    const form = document.getElementById('evaluationForm');
+    const selected = Array.from(form.querySelectorAll('input[type="radio"]')).filter(r => r.checked);
+    if (selected.length < 10) {
+        document.getElementById('result').textContent = 'Please answer all questions before submitting.';
+        document.getElementById('result').className = 'error';
+        return;
+    }
+
+    document.getElementById('result').textContent = 'Thank you! Your feedback has been submitted successfully.';
+    document.getElementById('result').className = 'success';
+}
+</script>
+
+</body>
+</html>

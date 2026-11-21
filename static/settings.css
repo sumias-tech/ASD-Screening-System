@@ -1,0 +1,116 @@
+:root {
+    --navy-dark: #0b1120;
+    --navy-light: #1e293b;
+    --pink-accent: #f85d90;
+    --bg-blue: #f0f7ff;
+    --white: #ffffff;
+    --text-gray: #64748b;
+    --sidebar-width: 260px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+
+body { background-color: var(--bg-blue); display: flex; }
+
+/* --- SIDEBAR --- */
+.sidebar {
+    width: var(--sidebar-width);
+    background: var(--navy-dark);
+    height: 100vh;
+    position: fixed;
+    left: 0; top: 0;
+    padding: 30px 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+}
+
+.sidebar-header { text-align: center; margin-bottom: 40px; }
+.profile-pic-container {
+    width: 80px; height: 80px; margin: 0 auto 10px;
+    border: 3px solid var(--pink-accent); border-radius: 50%;
+    overflow: hidden; background: white;
+}
+.child-dp { width: 100%; height: 100%; object-fit: cover; }
+.username { color: white; font-size: 18px; margin-bottom: 5px; }
+.view-profile-link { color: var(--pink-accent); font-size: 12px; text-decoration: none; }
+
+.nav-menu { flex-grow: 1; }
+.nav-item {
+    display: flex; align-items: center; padding: 15px 30px;
+    color: #94a3b8; text-decoration: none; transition: 0.3s; gap: 15px;
+}
+.nav-item:hover, .nav-item.active {
+    background: rgba(255,255,255,0.05); color: white;
+    border-left: 4px solid var(--pink-accent);
+}
+
+.logout-link { padding: 20px 30px; color: #f87171; text-decoration: none; }
+
+/* --- MAIN CONTENT --- */
+.main-content {
+    margin-left: var(--sidebar-width); /* FIXES THE LOADING/VISIBLE ISSUE */
+    padding: 40px;
+    width: calc(100% - var(--sidebar-width));
+}
+
+.page-header h1 { color: var(--navy-dark); font-size: 28px; margin-bottom: 5px; }
+.page-header p { color: var(--text-gray); margin-bottom: 30px; }
+
+/* --- CARDS --- */
+.settings-container { max-width: 700px; display: flex; flex-direction: column; gap: 20px; }
+.settings-card {
+    background: var(--white); padding: 25px; border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.pink-border { border-left: 6px solid var(--pink-accent); }
+
+.settings-card h3 { 
+    color: var(--navy-dark); font-size: 18px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 10px;
+}
+.subtitle { font-size: 13px; color: var(--text-gray); margin: -15px 0 20px 0; }
+
+/* --- INPUTS & BUTTONS --- */
+.field { display: flex; flex-direction: column; margin-bottom: 15px; }
+label { font-size: 13px; color: var(--text-gray); margin-bottom: 5px; font-weight: 600; }
+input {
+    padding: 12px; border: 1px solid #e2e8f0; border-radius: 10px;
+    background: #f8fafc; color: var(--navy-dark);
+}
+
+.btn-save {
+    background: var(--navy-dark); color: white; border: none;
+    padding: 12px 20px; border-radius: 10px; cursor: pointer;
+    font-weight: 600; transition: 0.3s; margin-top: 10px;
+}
+.btn-save:hover { background: var(--pink-accent); }
+
+/* --- TOGGLES --- */
+.toggle-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 0; border-bottom: 1px solid #f1f5f9;
+}
+.toggle-row:last-child { border-bottom: none; }
+.toggle-row span { font-size: 15px; font-weight: 500; color: var(--navy-light); }
+
+.switch { position: relative; width: 44px; height: 24px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider {
+    position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #cbd5e1; transition: .4s; border-radius: 34px;
+}
+.slider:before {
+    position: absolute; content: ""; height: 18px; width: 18px;
+    left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%;
+}
+input:checked + .slider { background-color: var(--pink-accent); }
+input:checked + .slider:before { transform: translateX(20px); }
+
+/* --- DANGER ZONE --- */
+.delete-btn {
+    background: none; border: 2px solid #ef4444; color: #ef4444;
+    padding: 12px; border-radius: 10px; width: 100%; cursor: pointer;
+    font-weight: 600; transition: 0.3s;
+}
+.delete-btn:hover { background: #ef4444; color: white; }

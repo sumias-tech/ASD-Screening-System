@@ -1,0 +1,551 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* BODY */
+body {
+    body{
+    background: whitesmoke;
+    color: #333;
+}
+}
+a {
+  text-decoration: none; 
+}
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background: #0d6dfd00;
+    color: rgb(0, 0, 0);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.navbar.shrink {
+  padding: 10px 40px;   /* 🔥 smaller */
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.navbar a{
+    color: rgb(166, 66, 66);
+    margin: 0 12px;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+
+nav a:hover{
+    color: #92bfe9;
+} 
+
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    font-family: 'Inter', sans-serif; /* Clean SaaS font */
+}
+
+.dropdown input {
+    display: none;
+}
+
+.dropdown label {
+    cursor: pointer;
+    color: rgb(166, 66, 66);
+    margin-left: 10px;
+    background: #f86506;
+    color: rgb(248, 242, 242);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+
+}
+
+.dropdown-menu {
+    position: absolute;
+    color: black;
+    list-style: none;
+    padding: 10px;
+    top: 30px;
+    border-radius: 8px;
+    min-width: 180px;
+    background-color: #ffffff; /* Deep Navy from the design */
+    list-style: none;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+#drop:checked ~ .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 12px 20px;
+    color: #8a2537;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background 0.2s;
+    border-left: 3px solid transparent; /* Reserved for the active state */
+}
+
+.dropdown-menu li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #000000;
+    border-left: 3px solid #9e0a0a; /* Subtle blue indicator */
+}
+
+
+/* HERO */
+.hero {
+    height: 90vh;
+    background-image: url('/static/kids.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 600px; 
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 50px 0 200px;
+    color: rgb(3, 3, 3);
+    margin-top: -50px;
+}
+.hero-content {
+    max-width: 600px;
+    color :rgb(255, 255, 255);
+    padding: 20px;
+}
+
+.hero-subtitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color:#333;
+}
+.hero-description {
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #555;
+}
+
+.hero h1 {
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.hero-description {
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+
+.servies-container {
+  display: flex;              /* THIS makes horizontal */
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: nowrap;   
+  margin-top: 100px; 
+  margin-bottom: 50px;
+}
+
+.servies-card {
+  background: #ffffff;
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+   width: 22%;/* IMPORTANT */
+  transition: 0.3s ease;
+  text-decoration: none;
+  box-sizing: border-box; /*It makes padding stay inside width*/
+}
+#doctor{
+   margin: 0 auto;
+}
+.servies-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+}
+
+.icon-box {
+  width: 70px;
+  height: 70px;
+  background: #007bff; /* Softica blue */
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 24px;
+}
+
+.servies-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  margin: 0;
+}
+
+/* BUTTONS */
+.btn {
+ width:20%;
+padding:12px;
+margin-top: 5px;
+background:#DAA520;
+color:white;
+border:none;
+border-radius:6px;
+cursor:pointer;
+}
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+/* ABOUT */
+.about {
+    padding: 60px 80px;
+    text-align: center;
+}
+
+.about h1 {
+    margin-bottom: 20px;
+}
+
+/* SCORES */
+.scores {
+    padding: 50px;
+    background: #E5D3B3;
+    text-align: center;
+}
+
+.score-graph {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.score {
+    background: white;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 10px;
+    width: 200px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* FEATURES */
+
+.feature-card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin: 20px auto 60px; /* Space for indicators */
+    max-width: 600px;
+    min-height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.feature-img {
+  width: 80px;        /* adjust size */
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;  /* 🔥 centers image */
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: rgba(0,0,0,0.5); /* Makes the arrows visible */
+    border-radius: 50%;
+    padding: 20px;
+}
+.indicates li {
+    background-color: #007bff; /* Color for the dots */
+}
+
+.card h3 {
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.card p {
+    font-size: 1.1rem;
+    color: #555;
+}
+.features {
+    background-color: #d1eee3; 
+    padding: 80px 0;
+    text-align: center;
+    overflow: hidden; /* Prevents stray elements from causing scroll */
+}
+
+.feature {
+   background: #fff;
+    padding: 40px 100px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    height: auto;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.feature:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(233, 226, 226, 0.12);
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2d5a5a;
+    margin-bottom: 50px;
+}
+
+/* Grid Layout */
+.feature-grid {
+    display: grid;
+    /* This creates 3 columns on desktop, 2 on tablet, 1 on mobile */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px; /* Space between cards */
+}
+
+/* Card Styling */
+.feature-card {
+    background: #ffffff;
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 350px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+}
+
+.feature-card .icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    color: #333;
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    line-height: 1.3;
+    /* Keeps titles aligned even if one is 2 lines and another is 1 */
+    min-height: 3em; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feature-card p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .section-title {
+        font-size: 2rem;
+    }
+}
+.works {
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(to bottom, #78c3d8 80%, #fefefe 20%);
+    min-height: 500px;
+}
+
+.works-header h2 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.works-header p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 50px;
+}
+
+/* Cards Layout */
+.cards-container {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    max-width: 1100px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+}
+
+.card {
+    background: white;
+    padding: 40px 20px;
+    border-radius: 12px;
+    width: 220px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    position: relative;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+.step-num {
+    position: absolute;
+    top: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    border: 1px solid #ddd;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Icon & Text Styling */
+.icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.card h3 {
+    font-size: 1.1rem;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.card p {
+    font-size: 0.9rem;
+    color: #666;
+    line-height: 1.5;
+
+}
+
+.users-section {
+    padding: 60px 20px;
+  background-color: #b4d5df;
+    font-family: 'Inter', sans-serif; /* Clean modern font */
+    text-align: center;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #1a1a1a;
+}
+
+/* Grid Layout */
+.user-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+/* Individual Cards */
+.user-card {
+    background-color: white;
+    border-radius: 16px;
+    padding: 30px;
+    flex: 1 1 220px; /* Responsive: grows/shrinks, min-width 220px */
+    max-width: 260px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.user-card:hover {
+    transform: translateY(-10px);
+}
+
+/* Icon Styling */
+.icon-box {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.user-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+    color: #333;
+}
+
+.user-card p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #666;
+}
+/* HOOK SECTION */
+.hook {
+    text-align: center;
+    padding: 60px;
+    background:#447fa9;
+    color: white;
+}
+
+.hook .btn {
+    background: rgb(255, 129, 39);
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+/* FOOTER */
+.footer {
+    text-align: center;
+    padding: 20px;
+    background: #222;
+    color: white;
+}

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile Dashboard</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='ppage.css')}}">
+</head>
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <h2>Users</h2>
+        <div class="header-right">
+            <a href="{{ url_for('home') }}"><button class="btn">home</button></a>
+           <a href="{{url_for('registration')}}" ><button class="btn">Edit</button></a>
+        </div>
+    </div>
+
+    <div class="main">
+
+       <nav class="sidebar">
+  <div class="sidebar-header">
+    <h2>Profile</h2>
+  </div><br>
+<ul class="menu">
+    <li onclick="showSection('profile')">My Profile</li>
+    <li onclick="showSection('mother')">Mother's Details</li>
+</ul>
+</div>
+    <button class="logout">Logout</button>
+</nav>
+
+        <!-- Right Panel -->
+        <div class="right-panel">
+          <div id="profile" class="section">
+            <h2>Profile Information</h2>
+
+            <div class="form-grid">
+                <p><b>Name:</b> {{ username }}</p>
+                <p><b>User ID:</b>{{ user_id }}</p>
+                <p><b>Email:</b> {{ email }}</p>
+                <p><b>Role:</b> {{ role }}</p>
+                <p><b>Age:</b>{{ age }}</p>
+                <p><b>Date:</b>{{ date }}</p>
+                <p><b>Gender:</b>{{ gender}}</p>
+                <p><b>Consultation started:</b>{{ consultationstarted }}</p>
+                <p><b>Consultation Ends</b> {{ consultationends }}</p>
+                <p><b>Condition</b>{{ condition}}</p>
+
+            </div>
+
+            <h4>Contact Info</h4>
+            <div class="form-grid">
+                <input type="tel" placeholder="Contact number">
+                <input type="email" placeholder="Email">
+                <input type="text" placeholder="WhatsApp">
+               
+            </div>
+
+            <h4>About the User</h4>
+            <textarea rows="5" placeholder="Write something..."></textarea>
+            </div>
+          <div id="mother" class="section" style="display:none;">
+            <h3>Mother's Details</h3>
+          </div>
+
+        </div>
+
+    </div>
+
+</div>
+<script>
+function showSection(sectionId) {
+    // hide all sections
+    let sections = document.querySelectorAll(".section");
+    sections.forEach(sec => sec.style.display = "none");
+
+    // show selected section
+    document.getElementById(sectionId).style.display = "block";
+}
+function showSection(sectionId , element) {
+    // hide sections
+    document.querySelectorAll(".section").forEach(sec => {
+        sec.style.display = "none";
+    });
+     // Show selected section
+    document.getElementById(sectionId).style.display = "block";
+
+    //remove active from all menu item
+    document.querySelectorAll(".menu li").forEach(li =>{
+      li.classList.remove("active");
+    })
+      // Add active to clicked item 
+    event.target.classList.add("active");
+}
+</script>
+</body>
+</html>

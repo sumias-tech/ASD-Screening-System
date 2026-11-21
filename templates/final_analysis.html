@@ -1,0 +1,475 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Analysis Report</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f1f5f9;
+            color: #102a43;
+        }
+        .page-shell {
+            max-width: 1180px;
+            margin: 0 auto;
+            padding: 26px 18px 42px;
+        }
+        .banner {
+            background: #0f172a;
+            color: white;
+            border-radius: 24px;
+            padding: 28px 34px;
+            display: grid;
+            grid-template-columns: 1.5fr 0.8fr;
+            gap: 24px;
+            align-items: start;
+            margin-bottom: 26px;
+            box-shadow: 0 26px 66px rgba(15, 23, 42, 0.14);
+        }
+        .banner-title {
+            margin: 0 0 12px;
+            font-size: clamp(30px, 4vw, 46px);
+            line-height: 1.05;
+            letter-spacing: -0.05em;
+        }
+        .banner-copy {
+            margin: 0;
+            max-width: 720px;
+            font-size: 15px;
+            line-height: 1.75;
+            color: #cbd5e1;
+        }
+        .banner-meta {
+            display: grid;
+            gap: 8px;
+            justify-content: end;
+            text-align: right;
+        }
+        .banner-meta .label {
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 11px;
+            color: #94a3b8;
+        }
+        .banner-meta .value {
+            font-size: 16px;
+            font-weight: 700;
+        }
+        .hero-grid,
+        .result-grid,
+        .action-row,
+        .interpretation-row {
+            display: grid;
+            gap: 22px;
+        }
+        .hero-grid {
+            grid-template-columns: 1.25fr 0.95fr;
+            margin-bottom: 24px;
+        }
+        .hero-card,
+        .section-card,
+        .summary-card,
+        .note-card {
+            background: white;
+            border-radius: 22px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
+            padding: 28px;
+        }
+        .hero-card {
+            display: grid;
+            gap: 18px;
+        }
+        .hero-metric {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .hero-icon {
+            width: 72px;
+            height: 72px;
+            background: #e0f2fe;
+            border-radius: 20px;
+            display: grid;
+            place-items: center;
+            font-size: 30px;
+            color: #0369a1;
+        }
+        .hero-text .label {
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+        .hero-text .value {
+            margin: 0;
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .hero-text .sub {
+            margin-top: 10px;
+            color: #64748b;
+            font-size: 14px;
+        }
+        .risk-panel {
+            border-radius: 24px;
+            padding: 28px;
+            display: grid;
+            gap: 16px;
+            min-height: 100%;
+        }
+        .risk-panel.low {
+            background: linear-gradient(135deg, #ecfdf5 0%, #bbf7d0 100%);
+            color: #14532d;
+        }
+        .risk-panel.moderate {
+            background: linear-gradient(135deg, #fef9c3 0%, #fde68a 100%);
+            color: #92400e;
+        }
+        .risk-panel.high {
+            background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+            color: #7f1d1d;
+        }
+        .risk-panel .label {
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            font-size: 12px;
+            font-weight: 700;
+            opacity: 0.9;
+        }
+        .risk-panel .status {
+            font-size: 34px;
+            font-weight: 800;
+            margin: 0;
+        }
+        .risk-panel .copy {
+            margin: 0;
+            line-height: 1.75;
+        }
+        .result-grid {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            margin-bottom: 26px;
+        }
+        .result-grid > .section-card:first-child {
+            grid-column: 1 / -1;
+            min-width: 100%;
+        }
+        .section-card {
+            display: grid;
+            gap: 18px;
+            min-height: 260px;
+        }
+        .section-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .section-icon {
+            width: 46px;
+            height: 46px;
+            background: #eff6ff;
+            border-radius: 14px;
+            display: grid;
+            place-items: center;
+            font-size: 20px;
+        }
+        .section-title {
+            margin: 0;
+            font-size: 14px;
+            font-weight: 800;
+            color: #0f172a;
+            line-height: 1.25;
+        }
+        .section-score {
+            font-size: 2.6rem;
+            font-weight: 800;
+            margin: 0;
+            color: #0f172a;
+        }
+        .section-status {
+            margin: 0;
+            font-size: 12px;
+            font-weight: 700;
+            color: #0f172a;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+        }
+        .section-copy {
+            margin: 0;
+            color: #475569;
+            font-size: 13px;
+            line-height: 1.75;
+        }
+        .action-row {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            align-items: start;
+            margin-bottom: 24px;
+        }
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 52px;
+            border-radius: 14px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: -0.02em;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+        .button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+        }
+        .button-primary {
+            background: #0f172a;
+            color: white;
+        }
+        .button-secondary {
+            background: white;
+            color: #0f172a;
+            border: 1px solid #e2e8f0;
+        }
+        .button-print {
+            background: #1d6fa4;
+            color: white;
+        }
+        .note-card h3 {
+            margin: 0 0 12px;
+            font-size: 18px;
+            color: #0f172a;
+        }
+        .note-card p,
+        .note-card ul,
+        .note-card li {
+            margin: 0;
+            color: #475569;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+        .note-card ul {
+            padding-left: 18px;
+            margin-top: 10px;
+        }
+        .note-card li {
+            margin-bottom: 10px;
+        }
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+        .pill-good { background: #ecfdf5; color: #14532d; }
+        .pill-warning { background: #fffbeb; color: #92400e; }
+        .pill-review { background: #fee2e2; color: #7f1d1d; }
+        .no-results {
+            border-radius: 20px;
+            background: #f8fafc;
+            border: 1px dashed #cbd5e1;
+            padding: 32px;
+            text-align: center;
+            color: #334155;
+            font-size: 16px;
+        }
+        @media (max-width: 1040px) {
+            .banner,
+            .hero-grid,
+            .result-grid,
+            .action-row,
+            .interpretation-row {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 680px) {
+            .page-shell {
+                padding: 18px 12px 32px;
+            }
+            .banner {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-shell">
+        <div class="banner">
+            <div>
+                <h1 class="banner-title">Your Child’s Assessment Overview</h1>
+                <p class="banner-copy">This report combines the latest results from the three assessment sections: medical history, screening, and behavioral observation.</p>
+            </div>
+            <div class="banner-meta">
+                <div class="label">Generated</div>
+                <div class="value">{{ completed_date or 'Not available' }}</div>
+            </div>
+        </div>
+
+        {% set score_value = final_score_percent if final_score_percent is not none else 0 %}
+        {% set risk_class = 'low' if overall_risk == 'Low Risk' else 'moderate' if overall_risk == 'Moderate Risk' else 'high' %}
+        {% set confidence_label = 'High Confidence' if score_value >= 70 else 'Moderate Confidence' if score_value >= 40 else 'Review Suggested' %}
+
+        <div class="hero-grid">
+            <div class="hero-card">
+                <div class="hero-metric">
+                    <div class="hero-icon">📊</div>
+                    <div class="hero-text">
+                        <div class="label">Overall ASD Behavioral Score</div>
+                        <p class="value">{{ final_score_percent | round(1) }}</p>
+                        <div class="sub">Average of the three completed sections: history, screening, and observation</div>
+                    </div>
+                </div>
+            </div>
+            <div class="risk-panel {{ risk_class }}">
+                <div class="label">Overall Risk Level</div>
+                <p class="status">{{ overall_risk or 'Incomplete' }}</p>
+                <p class="copy">
+                    {% if overall_risk == 'Low Risk' %}
+                        The overall assessment suggests low risk. The responses across the three sections do not point to major concerns.
+                    {% elif overall_risk == 'Moderate Risk' %}
+                        The assessment indicates moderate risk. Some developmental or behavioral patterns were noted and may benefit from monitoring.
+                    {% elif overall_risk == 'High Risk' %}
+                        The assessment indicates high risk. Several indicators were identified that may need further evaluation and follow-up.
+                    {% else %}
+                        The final combined score is unavailable until all three sections are completed.
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+<br><br><br>
+        <div class="result-grid">
+            {% for key, item in latest.items() if key != 'Final Analysis' %}
+            {% set display_score = item.display_score if item.display_score is not none else None %}
+            {% set pill_class = 'pill-good' if item.section_category == 'Low' else 'pill-warning' if item.section_category == 'Moderate' else 'pill-review' %}
+            {% set icon = '📋' if 'Assessment' in key else '✅' if 'Screening' in key else '🧠' if 'Observation' in key else '🎥' %}
+            {% if key == 'Section 1 - Assessment' %}
+            <div class="section-card">
+                <div class="section-top">
+                    <div class="section-icon">📋</div>
+                    <div class="section-title">Developmental Background</div>
+                </div>
+                <div class="background-details">
+                    <h4>Basic Details</h4>
+                    <p>Age: {{ user_age or 'Not provided' }}</p>
+                    <p>Gender: {{ user_gender or 'Not provided' }}</p>
+                    <h4>Background Information</h4>
+                    <p>Jaundice at birth → {{ 'Yes' if item.jaundice == 1 else 'No' if item.jaundice == 0 else 'Not sure' }}</p>
+                    <p>Family history of autism → {{ 'Yes' if item.family_asd == 1 else 'No' if item.family_asd == 0 else 'Not sure' }}</p>
+                    <p>Speech & learning → {{ 'Developing well' if item.delay_level == 0 else 'A little delay' if item.delay_level == 1 else 'Noticeable delay' if item.delay_level == 2 else 'Significant delay' if item.delay_level == 3 else 'Not sure' }}</p>
+                    <h4>Interpretation</h4>
+                    <p>
+                        {% if item.delay_level == 0 and item.family_asd == 0 and item.jaundice == 0 %}
+                            No major developmental concerns were noted from the background information.
+                        {% elif item.delay_level >= 1 or item.family_asd == 1 or item.jaundice == 1 %}
+                            Some developmental or family-related factors were noted and are considered in the overall assessment.
+                        {% else %}
+                            Some information was not available, which may slightly affect the completeness of the assessment.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+            {% else %}
+            <div class="section-card">
+                <div class="section-top">
+                    <div class="section-icon">{{ icon }}</div>
+                    <div class="section-title">{{ key }}</div>
+                </div>
+                <p class="section-score">{{ '%.1f%%' % display_score if display_score is not none else 'N/A' }}</p>
+                <p class="section-status">{{ 'Completed' if display_score is not none else 'Incomplete' }}</p>
+                <p class="section-copy">{{ item.section_sentence or item.result_text or 'This section must be completed to calculate the final analysis.' }}</p>
+                <span class="status-pill {{ pill_class }}">{{ item.section_category or 'Missing' }}</span>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+
+        <div class="action-row">
+            <button type="button" class="button button-secondary" onclick="clearLastThreeSessions()">Refresh Final Result</button>
+        </div>
+
+        <div class="interpretation-row">
+            <div class="note-card">
+                <h3>Overall Interpretation</h3>
+                <p>{{ summary or 'Complete all three sections to produce the final combined analysis.' }}</p>
+            </div>
+            <div class="note-card">
+                <h3>Confidence Level</h3>
+                <p style="font-size: 2rem; margin-bottom: 12px; font-weight: 700; color: #0f172a;">{{ score_value | round(0) }}%</p>
+                <p>{{ confidence_label }}</p>
+                <p class="message">
+            The information provided is helpful for screening, but a full clinical review may still be needed for confirmation.
+        </p>
+            </div>
+        </div>
+<br>
+        <div class="interpretation-row">
+            <div class="note-card">
+                <h3>Recommended next steps</h3>
+                {% if guidance %}
+                <ul>
+                    {% for next_step in guidance %}
+                    <li>{{ next_step }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Complete all three sections to get personalized next-step guidance.</p>
+                {% endif %}
+            </div>
+            <div class="note-card">
+                <h3>Parent guidance</h3>
+                {% if parent_guidance %}
+                <ul>
+                    {% for tip in parent_guidance %}
+                    <li>{{ tip }}</li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p>Please consult a healthcare professional for confirmation.</p>
+                {% endif %}
+            </div>
+        </div>
+<br>
+        <div class="note-card">
+            <h3>Important note</h3>
+            <p>This final analysis is generated from the most recent completed entry for each section. It is intended for screening and review purposes only, not as a medical diagnosis.</p>
+        </div>
+    </div>
+    <script>
+        function clearLastThreeSessions() {
+            const cards = document.querySelectorAll('.result-grid .section-card');
+            cards.forEach(card => {
+                const title = card.querySelector('.section-title')?.textContent || '';
+                if (title.includes('Section 1') || title.includes('Section 2') || title.includes('Section 3')) {
+                    const score = card.querySelector('.section-score');
+                    const status = card.querySelector('.section-status');
+                    const copy = card.querySelector('.section-copy');
+                    const pill = card.querySelector('.status-pill');
+                    if (score) score.textContent = 'N/A';
+                    if (status) status.textContent = 'Cleared';
+                    if (copy) copy.textContent = 'This session result has been cleared.';
+                    if (pill) {
+                        pill.textContent = 'Missing';
+                        pill.className = 'status-pill pill-review';
+                    }
+                }
+            });
+
+            const heroValue = document.querySelector('.hero-text .value');
+            const riskStatus = document.querySelector('.risk-panel .status');
+            const riskCopy = document.querySelector('.risk-panel .copy');
+            if (heroValue) heroValue.textContent = 'N/A';
+            if (riskStatus) riskStatus.textContent = 'Incomplete';
+            if (riskCopy) riskCopy.textContent = 'Last three session values have been cleared from this view.';
+        }
+    </script>
+</body>
+</html>
